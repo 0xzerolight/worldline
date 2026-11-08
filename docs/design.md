@@ -42,4 +42,6 @@ The look was settled with a throwaway prototype (three rounds, November 2026).
   (detected as a gap of more than 2 min between 30 s wall-clock ticks).
 - The current value is saved in the widget config and restored on start.
 - Desktop: no background frame by default (Plasma's "Show background" toggle
-  can add one). Panel: small tubes; click opens the big meter in a popup.
+  can add one). Panel: small tubes with 15 % of the panel thickness as padding
+  on every side, so they sit at the size of the icons and clock next to them;
+  click opens the big meter in a popup.

@@ -62,10 +62,13 @@ PlasmoidItem {
 
     compactRepresentation: MouseArea {
         readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
+        // Breathing room on every side, like the icons and clock next to it
+        // (~32 px icons in a 44 px panel); scales with the panel thickness.
+        readonly property real pad: Math.round((vertical ? width : height) * 0.15)
 
-        Layout.minimumWidth: vertical ? 0 : height * smallMeter.widthPerHeight
+        Layout.minimumWidth: vertical ? 0 : (height - 2 * pad) * smallMeter.widthPerHeight + 2 * pad
         Layout.preferredWidth: Layout.minimumWidth
-        Layout.minimumHeight: vertical ? width / smallMeter.widthPerHeight : 0
+        Layout.minimumHeight: vertical ? (width - 2 * pad) / smallMeter.widthPerHeight + 2 * pad : 0
         Layout.preferredHeight: Layout.minimumHeight
 
         onClicked: root.expanded = !root.expanded
@@ -73,6 +76,7 @@ PlasmoidItem {
         Meter {
             id: smallMeter
             anchors.fill: parent
+            anchors.margins: parent.pad
             glowColor: Plasmoid.configuration.colour
             glow: Plasmoid.configuration.glow
             showBack: Plasmoid.configuration.showUnlit
