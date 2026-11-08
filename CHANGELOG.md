@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-08
+
+Clock mode: the meter can show the local time instead of the worldline, switched from the settings or the right-click menu.
+
+### Added
+- **Clock mode: the local time as 24-hour `HH.MM.SS` (Configure Worldline → General, or the right-click menu).** The dots move to the third and sixth tubes. A tick just after each second redraws only the tubes whose digit changed — the one exception to idling between shifts; a new hour, a click and waking from sleep scramble into the time. The worldline holds still meanwhile (no drift, "Shift every" greyed out) and the tubes scramble back to it when clock mode ends. The web page's clock now uses the widget's own `Worldline.clock`.
+
 ## [1.0.0] - 2026-11-08
 
 First release: a nixie-tube divergence meter for the Plasma 6 desktop and panel that drifts to a new worldline every so often, on click and after sleep, with the same meter on the web.
