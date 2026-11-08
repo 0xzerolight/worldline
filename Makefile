@@ -14,7 +14,7 @@ lint:
 	$(QTBIN)/qmllint --max-warnings 0 $(QML)
 
 test:
-	QT_QPA_PLATFORM=offscreen $(QTBIN)/qmltestrunner -input tests
+	QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software $(QTBIN)/qmltestrunner -input tests
 
 install:
 	kpackagetool6 -t Plasma/Applet --upgrade package 2>/dev/null || kpackagetool6 -t Plasma/Applet --install package
