@@ -29,7 +29,7 @@ const settings = load();
 const now = new Date();
 const todays = today(now);
 const fromHash = () => {
-    const v = decodeURIComponent(location.hash.slice(1));
+    const v = location.hash.slice(1);
     return Worldline.isValid(v) ? v : null;
 };
 
@@ -82,8 +82,18 @@ const modes = new Modes(meter, shift, caption);
 $("#meter").addEventListener("click", shift);
 $("#shift").addEventListener("click", shift);
 $("#today").addEventListener("click", () => goTo(today(new Date()), "today"));
-$("#clock").addEventListener("click", () => modes.setClock(!modes.clock));
-$("#desk").addEventListener("click", () => modes.setDesk(!modes.desk));
+// After a mouse click, drop focus so Space shifts instead of pressing the button
+// again (`detail` is 0 for keyboard activation, which keeps its focus).
+$("#clock").addEventListener("click", e => {
+    if (e.detail)
+        e.currentTarget.blur();
+    modes.setClock(!modes.clock);
+});
+$("#desk").addEventListener("click", e => {
+    if (e.detail)
+        e.currentTarget.blur();
+    modes.setDesk(!modes.desk);
+});
 
 addEventListener("hashchange", () => {
     const v = fromHash();
@@ -108,18 +118,22 @@ $("#copy").addEventListener("click", async () => {
 });
 
 addEventListener("keydown", e => {
-    if (e.altKey || e.ctrlKey || e.metaKey || e.target.closest("input, button, select, textarea, a"))
+    if (e.altKey || e.ctrlKey || e.metaKey)
         return;
-    if ((e.key === " " || e.key === "Enter") && scrollY < innerHeight / 2) {
-        e.preventDefault();
-        shift();
-    } else if (e.key === "c" || e.key === "C") {
+    if (e.key === "Escape") {
+        openSettings(false);
+        modes.setDesk(false);
+        return;
+    }
+    if (e.target.closest("input, select, textarea"))
+        return;
+    if (e.key === "c" || e.key === "C") {
         modes.setClock(!modes.clock);
     } else if (e.key === "f" || e.key === "F") {
         modes.setDesk(!modes.desk);
-    } else if (e.key === "Escape") {
-        openSettings(false);
-        modes.setDesk(false);
+    } else if ((e.key === " " || e.key === "Enter") && !e.target.closest("button, a") && scrollY < innerHeight / 2) {
+        e.preventDefault();
+        shift();
     }
 });
 

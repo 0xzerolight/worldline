@@ -86,7 +86,12 @@ export class Modes {
     }
 
     lock() {
-        navigator.wakeLock?.request("screen").then(l => { this.wakeLock = l; }, () => {});
+        navigator.wakeLock?.request("screen").then(l => {
+            if (this.desk)
+                this.wakeLock = l;
+            else
+                l.release();   // desk mode ended while the request was pending
+        }, () => {});
     }
 
     // Like the widget: a shift after a random 20–60 min wait.
