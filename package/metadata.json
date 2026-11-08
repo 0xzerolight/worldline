@@ -1,0 +1,15 @@
+{
+    "KPlugin": {
+        "Id": "io.github.0xzerolight.worldline",
+        "Name": "Worldline",
+        "Description": "Nixie-tube divergence meter that drifts to a new worldline every so often",
+        "Icon": "chronometer",
+        "Category": "Date and Time",
+        "Authors": [{ "Name": "0xzerolight" }],
+        "License": "GPL-3.0-or-later",
+        "Version": "0.1.0",
+        "Website": "https://github.com/0xzerolight/worldline"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
