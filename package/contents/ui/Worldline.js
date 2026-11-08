@@ -21,6 +21,18 @@ function isValid(v) {
     return /^[0-9]\.[0-9]{6}$/.test(v);
 }
 
+// Seedable PRNG (mulberry32): floats in [0, 1), the same sequence for the same seed.
+function seeded(seed) {
+    var s = seed >>> 0;
+    return function () {
+        s = (s + 0x6D2B79F5) >>> 0;
+        var t = s;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
 // Drift: mostly small moves inside the current attractor field (the leading
 // digit), sometimes a jump to the other field, rarely the easter egg.
 // `rng` returns floats in [0, 1); it defaults to Math.random.

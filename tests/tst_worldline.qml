@@ -5,18 +5,6 @@ import "../package/contents/ui/Worldline.js" as Worldline
 TestCase {
     name: "Worldline"
 
-    // Small seedable PRNG (mulberry32) so runs are reproducible.
-    function seeded(seed) {
-        let s = seed >>> 0;
-        return function () {
-            s = (s + 0x6D2B79F5) >>> 0;
-            let t = s;
-            t = Math.imul(t ^ (t >>> 15), t | 1);
-            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        };
-    }
-
     function field(v) {
         return v.charAt(0);
     }
@@ -38,7 +26,7 @@ TestCase {
     }
 
     function test_always_valid_and_in_known_fields() {
-        const rng = seeded(1);
+        const rng = Worldline.seeded(1);
         let v = Worldline.EGG;
         for (let i = 0; i < 20000; ++i) {
             v = Worldline.next(v, rng);
@@ -48,7 +36,7 @@ TestCase {
     }
 
     function test_drift_moves_are_small_and_keep_the_field() {
-        const rng = seeded(2);
+        const rng = Worldline.seeded(2);
         let v = "0.571024";
         for (let i = 0; i < 20000; ++i) {
             const n = Worldline.next(v, rng);
@@ -61,7 +49,7 @@ TestCase {
     }
 
     function test_jump_and_egg_rates() {
-        const rng = seeded(3);
+        const rng = Worldline.seeded(3);
         const steps = 20000;
         let v = "0.571024", eggs = 0, jumps = 0;
         for (let i = 0; i < steps; ++i) {
@@ -78,7 +66,7 @@ TestCase {
     }
 
     function test_egg_never_repeats_itself() {
-        const rng = seeded(4);
+        const rng = Worldline.seeded(4);
         for (let i = 0; i < 2000; ++i)
             verify(Worldline.next(Worldline.EGG, rng) !== Worldline.EGG);
     }
