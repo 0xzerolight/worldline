@@ -3,7 +3,7 @@ ID := io.github.0xzerolight.worldline
 QML := $(wildcard package/contents/ui/*.qml package/contents/config/*.qml dev/*.qml tests/*.qml)
 SHOTS ?=
 
-.PHONY: check json lint test site webtest svgcheck serve install uninstall package preview
+.PHONY: check json lint test site webtest svgcheck serve install uninstall package preview screenshot
 
 check: json lint test site webtest svgcheck
 
@@ -44,3 +44,6 @@ package:
 
 preview:
 	$(QTBIN)/qml dev/preview.qml $(if $(SHOTS),-- --shots $(SHOTS))
+
+screenshot:
+	$(QTBIN)/qml dev/shot.qml -- assets/screenshot.png
