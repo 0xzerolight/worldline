@@ -8,6 +8,8 @@
 # Project specific
 *.plasmoid
 /shots/
+/_site/
+/web/widget.js
 .claude/
 .claude-runner/
 AGENTS.md

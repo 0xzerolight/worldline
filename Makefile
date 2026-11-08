@@ -3,9 +3,9 @@ ID := io.github.0xzerolight.worldline
 QML := $(wildcard package/contents/ui/*.qml package/contents/config/*.qml dev/*.qml tests/*.qml)
 SHOTS ?=
 
-.PHONY: check json lint test install uninstall package preview
+.PHONY: check json lint test site webtest svgcheck serve install uninstall package preview
 
-check: json lint test
+check: json lint test site webtest svgcheck
 
 json:
 	python3 -m json.tool package/metadata.json > /dev/null
@@ -15,6 +15,22 @@ lint:
 
 test:
 	QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software $(QTBIN)/qmltestrunner -input tests
+
+site:
+	rm -rf _site
+	node web/build.mjs _site
+	$(MAKE) -s package
+	cp worldline.plasmoid _site/
+
+webtest: site
+	for f in web/*.js; do node --check $$f || exit 1; done
+	node --test 'web/test/*.test.js'
+
+svgcheck: site
+	python3 -c "import sys, xml.etree.ElementTree as E; E.parse(sys.argv[1])" _site/today.svg
+
+serve: site
+	python3 -m http.server -d _site 8000
 
 install:
 	kpackagetool6 -t Plasma/Applet --upgrade package 2>/dev/null || kpackagetool6 -t Plasma/Applet --install package
