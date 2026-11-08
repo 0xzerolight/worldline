@@ -3,7 +3,7 @@
 A nixie-tube divergence meter widget for KDE Plasma 6, inspired by Steins;Gate.
 Every so often it drifts to a new worldline.
 
-![Worldline](docs/screenshot.png)
+![Worldline](assets/screenshot.png)
 
 - Desktop or panel; click to shift, settings for wait time, colour, glow and detail.
 - Drawn entirely in QML, no image assets; idle between shifts.
@@ -25,8 +25,6 @@ make check       # lint + tests
 make preview     # design preview window
 make package     # worldline.plasmoid
 ```
-
-See [docs/design.md](docs/design.md) for the design.
 
 ## Licence
 

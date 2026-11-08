@@ -1,2 +1,25 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
 *.plasmoid
 /shots/
+.claude/
+.claude-runner/
+AGENTS.md
+.agents/
+.codex/
+docs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# subagent-driven-development artifacts
+sdd/
+# git worktrees for isolated feature work (superpowers:using-git-worktrees)
+.worktrees/
