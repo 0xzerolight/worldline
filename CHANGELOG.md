@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-08
+
 First release: a nixie-tube divergence meter for the Plasma 6 desktop and panel that drifts to a new worldline every so often, on click and after sleep, with the same meter on the web.
 
 ### Added
