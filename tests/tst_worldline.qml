@@ -25,6 +25,12 @@ TestCase {
         verify(!Worldline.isValid(""));
     }
 
+    function test_clock_is_24_hour_hh_mm_ss() {
+        compare(Worldline.clock(new Date(2026, 0, 2, 3, 4, 5)), "03.04.05");
+        compare(Worldline.clock(new Date(2026, 0, 2, 13, 0, 9)), "13.00.09");
+        compare(Worldline.clock(new Date(2026, 0, 2, 23, 59, 59)), "23.59.59");
+    }
+
     function test_always_valid_and_in_known_fields() {
         const rng = Worldline.seeded(1);
         let v = Worldline.EGG;

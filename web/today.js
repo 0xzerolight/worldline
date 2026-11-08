@@ -16,8 +16,5 @@ export function today(date) {
     return v;
 }
 
-// Local time as a meter value, HH.MM.SS (the dots get their own tubes).
-export function clock(date) {
-    const two = v => String(v).padStart(2, "0");
-    return `${two(date.getHours())}.${two(date.getMinutes())}.${two(date.getSeconds())}`;
-}
+// Local time as a meter value, HH.MM.SS; the widget's clock mode uses the same.
+export const clock = Worldline.clock;

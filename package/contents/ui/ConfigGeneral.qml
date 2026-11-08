@@ -16,10 +16,18 @@ KCM.SimpleKCM {
     property alias cfg_glow: glowSlider.value
     property alias cfg_showUnlit: unlitBox.checked
     property alias cfg_showMesh: meshBox.checked
+    property alias cfg_clockMode: clockBox.checked
 
     Kirigami.FormLayout {
+        CheckBox {
+            id: clockBox
+            Kirigami.FormData.label: i18nc("@label:checkbox", "Clock:")  // qmllint disable unqualified
+            text: i18nc("@option:check", "Show the local time")  // qmllint disable unqualified
+        }
+
         RowLayout {
             Kirigami.FormData.label: i18nc("@label:spinbox", "Shift every:")  // qmllint disable unqualified
+            enabled: !clockBox.checked   // the worldline holds still in clock mode
             spacing: Kirigami.Units.smallSpacing
 
             SpinBox {

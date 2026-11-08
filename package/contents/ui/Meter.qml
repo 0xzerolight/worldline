@@ -48,6 +48,14 @@ Item {
         ticker.start();
     }
 
+    // Show `v` at once; mid-shift, lock onto `v` instead (the clock's ticks).
+    function set(v) {
+        if (busy)
+            target = v;
+        else
+            value = v;
+    }
+
     Timer {
         id: ticker
         interval: meter.tickMs
@@ -88,7 +96,7 @@ Item {
                 width: meter.tubeW
                 height: meter.tubeH
                 digit: meter.shown[index]
-                dpLit: index === 1
+                dpLit: meter.shown[index] < 0
                 glowColor: meter.glowColor
                 glow: meter.glow
                 showBack: meter.showBack

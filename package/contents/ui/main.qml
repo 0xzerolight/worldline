@@ -15,13 +15,34 @@ PlasmoidItem {
     readonly property string worldline: Worldline.isValid(Plasmoid.configuration.value)
         ? Plasmoid.configuration.value : Worldline.EGG
     readonly property string waitRange: Plasmoid.configuration.minMinutes + "-" + Plasmoid.configuration.maxMinutes
+    // Clock mode: the tubes show the local time and the worldline holds still.
+    readonly property bool clockMode: Plasmoid.configuration.clockMode
 
+    // The meters scramble into `v` on a shift; a clock tick is shown at once.
+    signal scrambleTo(string v)
+    signal showNow(string v)
+
+    // What the tubes should show now.
+    function face() {
+        return clockMode ? Worldline.clock(new Date()) : worldline;
+    }
+
+    // A time leap (drift timer, click, wake): a new worldline, or in clock mode
+    // a fresh scramble into the time.
     function shift() {
+        if (clockMode) {
+            scrambleTo(face());
+            return;
+        }
         Plasmoid.configuration.value = Worldline.next(worldline);
         scheduleNext();
     }
 
     function scheduleNext() {
+        if (clockMode) {
+            shiftTimer.stop();
+            return;
+        }
         const a = Plasmoid.configuration.minMinutes;
         const b = Plasmoid.configuration.maxMinutes;
         const lo = Math.max(1, Math.min(a, b));
@@ -37,12 +58,58 @@ PlasmoidItem {
     toolTipMainText: Plasmoid.title
     toolTipSubText: worldline
 
+    // The linter (Qt 6.10) can't resolve object bindings into this attached list.
+    Plasmoid.contextualActions: [
+        PlasmaCore.Action {  // qmllint disable missing-property
+            text: i18nc("@action:inmenu", "Clock Mode")  // qmllint disable unqualified
+            icon.name: "clock"
+            checkable: true
+            checked: root.clockMode
+            onTriggered: Plasmoid.configuration.clockMode = !root.clockMode
+        }
+    ]
+
+    onWorldlineChanged: scrambleTo(worldline)
     onWaitRangeChanged: scheduleNext()
-    Component.onCompleted: scheduleNext()
+    onClockModeChanged: {
+        scheduleNext();
+        if (clockMode)
+            clockTimer.arm(new Date());
+        else
+            clockTimer.stop();
+        scrambleTo(face());
+    }
+    Component.onCompleted: {
+        scheduleNext();
+        if (clockMode)
+            clockTimer.arm(new Date());
+    }
 
     Timer {
         id: shiftTimer
         onTriggered: root.shift()
+    }
+
+    // Clock mode: fires just after each second turns over. A new hour
+    // re-scrambles, as on the web page (and as nixie clocks do).
+    Timer {
+        id: clockTimer
+        property int hour: -1
+
+        function arm(now: date) {
+            hour = now.getHours();
+            interval = 1005 - Date.now() % 1000;
+            restart();
+        }
+
+        onTriggered: {
+            const now = new Date();
+            if (now.getHours() !== hour)
+                root.scrambleTo(Worldline.clock(now));
+            else
+                root.showNow(Worldline.clock(now));
+            arm(now);
+        }
     }
 
     // Wall-clock heartbeat: a big gap between ticks means the machine slept,
@@ -81,12 +148,15 @@ PlasmoidItem {
             glow: Plasmoid.configuration.glow
             showBack: Plasmoid.configuration.showUnlit
             showMesh: Plasmoid.configuration.showMesh
-            Component.onCompleted: value = root.worldline
+            Component.onCompleted: value = root.face()
         }
         Connections {
             target: root
-            function onWorldlineChanged() {
-                smallMeter.shiftTo(root.worldline);
+            function onScrambleTo(v: string) {
+                smallMeter.shiftTo(v);
+            }
+            function onShowNow(v: string) {
+                smallMeter.set(v);
             }
         }
     }
@@ -106,12 +176,15 @@ PlasmoidItem {
             glow: Plasmoid.configuration.glow
             showBack: Plasmoid.configuration.showUnlit
             showMesh: Plasmoid.configuration.showMesh
-            Component.onCompleted: value = root.worldline
+            Component.onCompleted: value = root.face()
         }
         Connections {
             target: root
-            function onWorldlineChanged() {
-                bigMeter.shiftTo(root.worldline);
+            function onScrambleTo(v: string) {
+                bigMeter.shiftTo(v);
+            }
+            function onShowNow(v: string) {
+                bigMeter.set(v);
             }
         }
     }

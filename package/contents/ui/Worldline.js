@@ -21,6 +21,14 @@ function isValid(v) {
     return /^[0-9]\.[0-9]{6}$/.test(v);
 }
 
+// Local time as a meter value, HH.MM.SS (24 h; the dots get their own tubes).
+function clock(date) {
+    function two(n) {
+        return (n < 10 ? "0" : "") + n;
+    }
+    return two(date.getHours()) + "." + two(date.getMinutes()) + "." + two(date.getSeconds());
+}
+
 // Seedable PRNG (mulberry32): floats in [0, 1), the same sequence for the same seed.
 function seeded(seed) {
     var s = seed >>> 0;
