@@ -31,8 +31,9 @@ PlasmoidItem {
     }
 
     Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground | PlasmaCore.Types.ConfigurableBackground
-    switchWidth: Kirigami.Units.gridUnit * 8
-    switchHeight: Kirigami.Units.gridUnit * 2
+    // No switchWidth/switchHeight: when set they override the form factor, and a
+    // tall panel would get the full meter. Without them Plasma shows the full
+    // meter on the desktop and the small tubes in panels.
     toolTipMainText: Plasmoid.title
     toolTipSubText: worldline
 
