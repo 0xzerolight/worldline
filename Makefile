@@ -19,8 +19,6 @@ test:
 site:
 	rm -rf _site
 	node web/build.mjs _site
-	$(MAKE) -s package
-	cp worldline.plasmoid _site/
 
 webtest: site
 	for f in web/*.js; do node --check $$f || exit 1; done

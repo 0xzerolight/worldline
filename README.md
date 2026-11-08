@@ -3,6 +3,7 @@
 <p align="center">
 <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
 <a href="https://kde.org/plasma-desktop/"><img src="https://img.shields.io/badge/KDE_Plasma-6-1d99f3?logo=kde&logoColor=white" alt="KDE Plasma 6"></a>
+<a href="https://store.kde.org/p/2381415/"><img src="https://img.shields.io/badge/KDE_Store-Worldline-1d99f3?logo=kde&logoColor=white" alt="KDE Store"></a>
 </p>
 
 <p align="center">
@@ -27,13 +28,19 @@ Please leave a ⭐ star if you like Worldline - it helps others find it :).
 
 Requires KDE Plasma 6.
 
+From the [KDE Store](https://store.kde.org/p/2381415/): in **Add Widgets**, pick **Get New Widgets… → Download New Plasma Widgets…** and search for **Worldline**.
+
+Or download [worldline.plasmoid](https://github.com/0xzerolight/worldline/releases/latest/download/worldline.plasmoid) and pick **Get New Widgets… → Install Widget From Local File…**.
+
+Or from source:
+
 ```sh
 git clone https://github.com/0xzerolight/worldline.git
 cd worldline
 make install
 ```
 
-Then add **Worldline** from **Add Widgets**. `make uninstall` removes it.
+Then add **Worldline** from **Add Widgets**. `make uninstall` removes a source install.
 
 <details>
 <summary><strong>Development</strong></summary>
