@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    - cron: "7 0 * * *"   # daily, so the site and README move to the new day's worldline
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,10 +23,31 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            ca-certificates git make python3 \
+            ca-certificates git make python3 nodejs zip \
             qt6-declarative-dev-tools qml6-module-qttest \
             qml6-module-qtquick-controls qml6-module-qtquick-layouts \
             qml6-module-qtquick-shapes qml6-module-qtquick-effects qml6-module-qtquick-window \
             plasma-desktoptheme qml6-module-org-kde-kirigami qml6-module-org-kde-kcmutils
       - uses: actions/checkout@v7
       - run: make check
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  pages:
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5
