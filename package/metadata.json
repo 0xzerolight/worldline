@@ -8,7 +8,8 @@
         "Authors": [{ "Name": "0xzerolight" }],
         "License": "GPL-3.0-or-later",
         "Version": "0.1.0",
-        "Website": "https://github.com/0xzerolight/worldline"
+        "Website": "https://github.com/0xzerolight/worldline",
+        "BugReportUrl": "https://github.com/0xzerolight/worldline/issues"
     },
     "KPackageStructure": "Plasma/Applet",
     "X-Plasma-API-Minimum-Version": "6.0"
