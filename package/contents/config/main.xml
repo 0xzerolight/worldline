@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <entry name="minMinutes" type="Int">
+      <default>20</default>
+    </entry>
+    <entry name="maxMinutes" type="Int">
+      <default>60</default>
+    </entry>
+    <entry name="colour" type="String">
+      <default>#ff6b1a</default>
+    </entry>
+    <entry name="glow" type="Double">
+      <default>0.7</default>
+    </entry>
+    <entry name="showUnlit" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showMesh" type="Bool">
+      <default>true</default>
+    </entry>
+    <!-- current worldline; written by the widget, not shown on the settings page -->
+    <entry name="value" type="String">
+      <default>1.048596</default>
+    </entry>
+  </group>
+</kcfg>
