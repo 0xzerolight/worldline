@@ -71,7 +71,7 @@ PlasmoidItem {
         Layout.minimumHeight: vertical ? (width - 2 * pad) / smallMeter.widthPerHeight + 2 * pad : 0
         Layout.preferredHeight: Layout.minimumHeight
 
-        onClicked: root.expanded = !root.expanded
+        onClicked: root.shift()
 
         Meter {
             id: smallMeter

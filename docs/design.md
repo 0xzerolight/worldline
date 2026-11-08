@@ -44,4 +44,4 @@ The look was settled with a throwaway prototype (three rounds, November 2026).
 - Desktop: no background frame by default (Plasma's "Show background" toggle
   can add one). Panel: small tubes with 15 % of the panel thickness as padding
   on every side, so they sit at the size of the icons and clock next to them;
-  click opens the big meter in a popup.
+  click shifts, as on the desktop (no popup).
