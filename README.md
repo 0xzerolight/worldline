@@ -21,6 +21,7 @@ Please leave a ⭐ star if you like Worldline - it helps others find it :).
 
 - Desktop or panel - the full meter on the desktop, small tubes in a panel.
 - Shifts on its own every 20-60 minutes (adjustable), when clicked, and after the machine wakes from sleep.
+- Clock mode - the local time as HH.MM.SS, from the settings or the right-click menu.
 - Settings - glow colour, glow strength, unlit digits, anode mesh.
 - Drawn entirely in QML with no image assets; idle between shifts.
 
