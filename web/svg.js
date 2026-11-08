@@ -39,6 +39,11 @@ function tint(base, over, a) {
     return "#" + b.map((v, i) => Math.round(v * (1 - a) + o[i] * a).toString(16).padStart(2, "0")).join("");
 }
 
+// The hot core of a lit wire.
+export function coreColour(colour) {
+    return tint(colour, "#fff7e0", 0.62);
+}
+
 // Cathode `d` as path data in tube units, shrunk by `k` around the digit box centre.
 export function wirePath(d, k = 1) {
     const sx = U * k, sy = U * k * STRETCH;
@@ -74,7 +79,7 @@ export function meshPath() {
 
 // Shared layers. `p` prefixes every id so several meters can live in one document.
 function layers(p, o) {
-    const core = tint(o.colour, "#fff7e0", 0.62);
+    const core = coreColour(o.colour);
     const mesh = meshPath();
     const capX = GLASS_X - TUBE_W * 0.01, capW = GLASS_W + TUBE_W * 0.02, r = CAP_H / 2;
     const baseX = TUBE_W * 0.01, baseW = TUBE_W * 0.98, baseY = GLASS_BOTTOM - BASE_H / 2;

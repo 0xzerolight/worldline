@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Worldline</title>
+<meta name="description" content="A nixie-tube divergence meter that drifts to a new worldline every so often. Tap it to shift; a KDE Plasma 6 widget.">
+<meta name="theme-color" content="#050404">
+<meta property="og:title" content="Worldline">
+<meta property="og:description" content="A nixie-tube divergence meter that drifts to a new worldline every so often.">
+<meta property="og:image" content="https://0xzerolight.github.io/worldline/screenshot.png">
+<meta property="og:url" content="https://0xzerolight.github.io/worldline/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='1' width='20' height='30' rx='3' fill='%23140f0d'/%3E%3Cpath d='M12 9 16 5V27' fill='none' stroke='%23ff6b1a' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="bar">
+  <span class="mark">Worldline</span>
+  <nav class="tools" aria-label="Modes">
+    <button id="clock" type="button" aria-pressed="false" title="Clock (C)">Clock</button>
+    <button id="desk" type="button" aria-pressed="false" title="Desk mode (F)">Desk</button>
+    <button id="gear" type="button" aria-expanded="false" aria-controls="settings">Settings</button>
+  </nav>
+</header>
+
+<aside id="settings" class="settings" hidden aria-label="Settings">
+  <fieldset>
+    <legend>Colour</legend>
+    <div id="swatches" class="swatches"></div>
+  </fieldset>
+  <label class="row">Glow <input id="glow" type="range" min="0" max="1" step="0.05"></label>
+  <label class="row"><input id="unlit" type="checkbox"> Unlit digits</label>
+  <label class="row"><input id="mesh" type="checkbox"> Mesh</label>
+</aside>
+
+<main>
+  <section class="hero">
+    <div id="meter" class="meter" role="img" aria-label="Worldline"></div>
+    <p class="caption"><span id="caption">Today's worldline</span><span id="date"></span></p>
+    <div class="actions">
+      <button id="shift" type="button">Shift <kbd>Space</kbd></button>
+      <button id="copy" type="button">Copy link</button>
+      <button id="today" type="button" hidden>Back to today</button>
+    </div>
+    <p class="hint">Tap the tubes to shift. Every worldline has its own link.</p>
+    <p id="said" class="sr" aria-live="polite"></p>
+  </section>
+
+  <section class="inside" aria-labelledby="inside-title">
+    <div class="text">
+      <h2 id="inside-title">Inside a tube</h2>
+      <p>Ten wire cathodes stand one behind the other, front to back <span class="mono">1 6 2 7 5 0 4 9 8 3</span>, behind a square anode mesh. Only the lit one glows; those in front of it catch a little of its light, those behind stay grey.</p>
+      <p>Everything here is drawn in code from the same digit paths the widget uses. Tap a cathode to light it.</p>
+      <button id="apart" type="button" aria-pressed="false">Take it apart</button>
+    </div>
+    <div class="stage3d"><div id="tube3d" class="tube3d"></div></div>
+  </section>
+
+  <section class="install" aria-labelledby="install-title">
+    <h2 id="install-title">On your desktop</h2>
+    <p>Worldline is a widget for KDE Plasma 6. It sits on the desktop or in a panel, drifts to a new worldline every 20 to 60 minutes, shifts when you click it, and does nothing at all in between.</p>
+    <pre><code>git clone https://github.com/0xzerolight/worldline
+cd worldline &amp;&amp; make install</code></pre>
+    <p>Or download <a href="worldline.plasmoid" download>worldline.plasmoid</a> and install it with</p>
+    <pre><code>kpackagetool6 -t Plasma/Applet -i worldline.plasmoid</code></pre>
+    <p>Then add <b>Worldline</b> from <i>Add Widgets</i>.</p>
+  </section>
+</main>
+
+<footer>
+  <p><a href="https://github.com/0xzerolight/worldline">Source on GitHub</a> · GPL-3.0-or-later</p>
+  <p>Inspired by Steins;Gate. Steins;Gate is a trademark of its owners; this project is not affiliated with them.</p>
+</footer>
+</body>
+</html>
