@@ -27,13 +27,12 @@ Please leave a ⭐ star if you like Worldline - it helps others find it :).
 
 ## Installation
 
-Requires KDE Plasma 6.
+In **Add Widgets**, pick **Get New Widgets… -> Download New Plasma Widgets…** and search for **Worldline**.
 
-From the [KDE Store](https://store.kde.org/p/2381415/): in **Add Widgets**, pick **Get New Widgets… → Download New Plasma Widgets…** and search for **Worldline**.
+Or download [worldline.plasmoid](https://github.com/0xzerolight/worldline/releases/latest/download/worldline.plasmoid) and pick **Get New Widgets… -> Install Widget From Local File…**.
 
-Or download [worldline.plasmoid](https://github.com/0xzerolight/worldline/releases/latest/download/worldline.plasmoid) and pick **Get New Widgets… → Install Widget From Local File…**.
-
-Or from source:
+<details>
+<summary><strong>Download from source</strong></summary>
 
 ```sh
 git clone https://github.com/0xzerolight/worldline.git
@@ -42,6 +41,8 @@ make install
 ```
 
 Then add **Worldline** from **Add Widgets**. `make uninstall` removes a source install.
+
+</details>
 
 <details>
 <summary><strong>Development</strong></summary>
