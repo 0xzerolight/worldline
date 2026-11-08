@@ -8,6 +8,7 @@ export const TUBE_H = 200;
 export const GAP = TUBE_W * 0.035;
 export const METER_W = 8 * TUBE_W + 7 * GAP;
 export const DEFAULTS = { colour: "#ff6b1a", glow: 0.7, showBack: true, showMesh: true };
+export const PAD = 14;   // room around the tubes for the glow
 
 const STRETCH = 1.15;
 const CAP_H = TUBE_W * 0.075;
@@ -188,7 +189,7 @@ export function tubeX(i) {
 }
 
 // The whole meter showing `value` (8 characters), with `pad` units of room for the glow.
-export function meterSVG(value, opts = DEFAULTS, pad = 14, p = "wl") {
+export function meterSVG(value, opts = DEFAULTS, pad = PAD, p = "wl") {
     const w = n(METER_W + 2 * pad), h = TUBE_H + 2 * pad;
     const tubes = [...value].map((ch, i) => `<use href="#${tubeId(ch, p)}" x="${tubeX(i)}"/>`).join("");
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-pad} ${-pad} ${w} ${h}">` +
